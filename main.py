@@ -9,7 +9,7 @@ from threading import Lock
 import time
 
 app = FastAPI(title="AI Forex Predictor")
-PAIRS = {"AUD/USD": "AUDUSD=X", "EUR/USD": "EURUSD=X", "GBP/USD": "GBPUSD=X", "USD/JPY": "JPY=X"}
+PAIRS = {"EUR/USD": "EURUSD=X"}
 HORIZONS = {"15m": 3, "30m": 6, "1h": 12}
 
 # Reuse market data instead of repeatedly calling Yahoo Finance.
@@ -99,7 +99,7 @@ def health():
     return {"status": "ok", "time": datetime.now(timezone.utc).isoformat()}
 
 @app.get("/api/predict")
-def predict(pair: str = "AUD/USD", horizon: str = "15m"):
+def predict(pair: str = "EUR/USD", horizon: str = "15m"):
     if pair not in PAIRS or horizon not in HORIZONS:
         raise HTTPException(status_code=400, detail="Unsupported currency pair or forecast horizon.")
     try:
