@@ -4,17 +4,17 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1220"><link rel="manifest" href="/static/manifest.json">
 <link rel="icon" href="/static/icon.svg"><link rel="stylesheet" href="/static/style.css">
-<title>AI Forex Predictor</title>
+<title>EUR/USD AI Forex Predictor</title>
 </head>
 <body>
-<header><div class="brand"><span class="logo">FX</span><div><h1>AI Forex Predictor</h1><p>Market signals · Experimental forecasts</p></div></div><button id="notify">Enable alerts</button></header>
+<header><div class="brand"><span class="logo">FX</span><div><h1>EUR/USD AI Predictor</h1><p>Market signals · Experimental forecasts</p></div></div><button id="notify">Enable alerts</button></header>
 <main>
-<section class="hero"><div><span class="eyebrow">LIVE MARKET LAB</span><h2>Currency outlook</h2><p>Model-generated short-term projections using recent market data.</p></div><div class="status"><i></i> Data connection on demand</div></section>
-<section class="controls panel"><label>Currency pair<select id="pair"><option>AUD/USD</option><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option></select></label><label>Forecast horizon<select id="horizon"><option>15m</option><option>30m</option><option>1h</option></select></label><button id="run">Generate forecast <span>↗</span></button></section>
-<section id="result" class="panel result"><div class="placeholder"><div class="pulse">✦</div><h3>Ready to analyse</h3><p>Choose a pair and horizon, then generate a forecast.</p></div></section>
-<section class="panel info"><h3>How to read the forecast</h3><p>The model estimates a possible direction and price based on recent five-minute candles. It is an experimental statistical estimate, not a guaranteed prediction.</p></section>
+<section class="hero"><div><span class="eyebrow">LIVE MARKET LAB</span><h2>EUR/USD outlook</h2><p>Model-generated short-term projections using recent market data.</p></div><div class="status"><i></i> Data connection on demand</div></section>
+<section class="controls panel"><label>Currency pair<select id="pair"><option selected>EUR/USD</option></select></label><label>Forecast horizon<select id="horizon"><option>15m</option><option>30m</option><option>1h</option></select></label><button id="run">Generate forecast <span>↗</span></button></section>
+<section id="result" class="panel result"><div class="placeholder"><div class="pulse">✦</div><h3>Ready to analyse</h3><p>Choose a forecast horizon, then generate an EUR/USD forecast.</p></div></section>
+<section class="panel info"><h3>How to read the forecast</h3><p>The model estimates a possible direction and price based on recent five-minute EUR/USD candles. It is an experimental statistical estimate, not a guaranteed prediction.</p></section>
 <section class="warning">Risk notice: Forex trading involves substantial risk. Data may be delayed, incomplete or unavailable. This tool is for education only and is not financial advice.</section>
 </main>
-<footer>AI Forex Predictor <span>Prototype · v1.0</span></footer>
+<footer>EUR/USD AI Forex Predictor <span>Prototype · v1.1</span></footer>
 <script src="/static/app.js"></script>
 </body></html>
