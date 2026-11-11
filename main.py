@@ -20,30 +20,28 @@ STALE_SECONDS = 21600
 
 def get_market_data(symbol: str):
     now = time.time()
+    # Hold the lock during download so simultaneous requests share one Yahoo call.
     with CACHE_LOCK:
         cached = DATA_CACHE.get(symbol)
         if cached and now - cached["time"] < CACHE_SECONDS:
             return cached["data"], False
-
-    try:
-        data = yf.download(
-            symbol, period="5d", interval="5m", progress=False,
-            auto_adjust=True, threads=False, timeout=20
-        )
-        if data is None or data.empty:
-            raise ValueError("The market-data provider returned no prices.")
-        with CACHE_LOCK:
+        try:
+            data = yf.download(
+                symbol, period="5d", interval="5m", progress=False,
+                auto_adjust=True, threads=False, timeout=20
+            )
+            if data is None or data.empty:
+                raise ValueError("The market-data provider returned no prices.")
             DATA_CACHE[symbol] = {"time": now, "data": data}
-        return data, False
-    except Exception as exc:
-        with CACHE_LOCK:
+            return data, False
+        except Exception as exc:
             cached = DATA_CACHE.get(symbol)
-        if cached and now - cached["time"] < STALE_SECONDS:
-            return cached["data"], True
-        message = str(exc)
-        if "rate" in message.lower() or "too many requests" in message.lower():
-            raise ValueError("Yahoo Finance is temporarily rate-limiting requests. Please wait 10–15 minutes and try again.")
-        raise ValueError("Unable to retrieve market data right now. Please try again later.")
+            if cached and now - cached["time"] < STALE_SECONDS:
+                return cached["data"], True
+            message = str(exc)
+            if "rate" in message.lower() or "too many requests" in message.lower():
+                raise ValueError("Yahoo Finance is temporarily rate-limiting requests. Please wait 10–15 minutes and try again.")
+            raise ValueError("Unable to retrieve market data right now. Please try again later.")
 
 def forecast(symbol: str, steps: int):
     data, using_cached_data = get_market_data(symbol)
